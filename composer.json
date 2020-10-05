@@ -1,0 +1,9 @@
+{
+    "name": "robertplanetweb/helpers",
+    "type": "project",
+    "description": "Generic (Laravel) Helpers.",
+    "keywords": [],
+    "license": "MIT",
+    "require": {},
+    "require-dev": {},
+}
