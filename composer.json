@@ -4,6 +4,19 @@
     "description": "Generic (Laravel) Helpers.",
     "keywords": [],
     "license": "MIT",
-    "require": {},
-    "require-dev": {}
+    "authors": [
+        {
+            "name": "Robert Buchi",
+            "email": "robert@planetweb.ro"
+        }
+    ],
+    "require": {
+        "php": "^7.1.3"
+    },
+    "require-dev": {},
+    "autoload": {
+        "files": [
+            "src/helpers.php"
+        ]
+    }
 }
