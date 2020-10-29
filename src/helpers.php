@@ -255,3 +255,11 @@ function format_date($date) {
 
     return date('d M', strtotime($date));
 }
+
+function get_first_last_name($name) {
+    $exp = explode(' ', $request->get('name'));
+    $last_name = array_pop($exp);
+    $first_name = implode(' ', $exp);
+
+    return compact('first_name', 'last_name');
+}
