@@ -257,7 +257,7 @@ function format_date($date) {
 }
 
 function get_first_last_name($name) {
-    $exp = explode(' ', $request->get('name'));
+    $exp = explode(' ', $name);
     $last_name = array_pop($exp);
     $first_name = implode(' ', $exp);
 
