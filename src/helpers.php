@@ -261,5 +261,10 @@ function get_first_last_name($name) {
     $last_name = array_pop($exp);
     $first_name = implode(' ', $exp);
 
+    if ( !$first_name ) {
+        $first_name = $last_name;
+        $last_name = '';
+    }
+
     return compact('first_name', 'last_name');
 }
