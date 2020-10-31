@@ -257,6 +257,7 @@ function format_date($date) {
 }
 
 function get_first_last_name($name) {
+    $name = ucwords($name);
     $exp = explode(' ', $name);
     $last_name = array_pop($exp);
     $first_name = implode(' ', $exp);
