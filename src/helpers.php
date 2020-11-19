@@ -233,6 +233,18 @@ function ints_to_strings($arr) {
     return $arr;
 }
 
+function get_timezones() {
+    $timezones = [];
+    foreach ( DateTimeZone::listIdentifiers(DateTimeZone::ALL) as $timezone ) {
+        $timezones[] = [
+            'text' => pretty_timezone($timezone),
+            'value' => $timezone,
+        ];
+    }
+
+    return $timezones;
+}
+
 function pretty_hour($hour) {
     $pretty_hour = $hour.' AM';
 
