@@ -233,16 +233,29 @@ function ints_to_strings($arr) {
     return $arr;
 }
 
-function get_timezones() {
-    $timezones = [];
-    foreach ( DateTimeZone::listIdentifiers(DateTimeZone::ALL) as $timezone ) {
-        $timezones[] = [
-            'text' => pretty_timezone($timezone),
-            'value' => $timezone,
-        ];
-    }
+function pretty_timezone($timezone) {
+    $offset = get_timezone_offset($timezone);
+    $hour = floor($offset / 3600);
+    $hour = abs($hour) < 10 ? ( $hour < 0 ? '-0'.abs($hour) : '+0'.$hour) : ($hour > 0 ? '+'.$hour : $hour);
+    $minutes = ($offset % 3600) / 60;
+    $minutes = $minutes < 10 ? '0'.$minutes : $minutes;
+    $pretty = $timezone.' (GMT'.$hour.':'.$minutes.')';
 
-    return $timezones;
+    return $pretty;
+}
+
+function get_timezone_offset($remote_tz, $origin_tz = null) {
+    if($origin_tz === null) {
+        if(!is_string($origin_tz = date_default_timezone_get())) {
+            return false; // A UTC timestamp was returned -- bail out!
+        }
+    }
+    $origin_dtz = new DateTimeZone($origin_tz);
+    $remote_dtz = new DateTimeZone($remote_tz);
+    $origin_dt = new DateTime("now", $origin_dtz);
+    $remote_dt = new DateTime("now", $remote_dtz);
+    $offset = $origin_dtz->getOffset($origin_dt) - $remote_dtz->getOffset($remote_dt);
+    return $offset / -1;
 }
 
 function pretty_hour($hour) {
@@ -256,6 +269,18 @@ function pretty_hour($hour) {
     }
 
     return $pretty_hour;
+}
+
+function get_timezones() {
+    $timezones = [];
+    foreach ( DateTimeZone::listIdentifiers(DateTimeZone::ALL) as $timezone ) {
+        $timezones[] = [
+            'text' => pretty_timezone($timezone),
+            'value' => $timezone,
+        ];
+    }
+
+    return $timezones;
 }
 
 function format_date($date) {
